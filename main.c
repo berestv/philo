@@ -6,23 +6,29 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:38:22 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/09/14 16:34:42 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:03:57 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void init(t_phil *phil, t_data *data, char **str, int meal_no)
+int	init(t_phil *phil, t_data *data, char **str)
 {
-	data->philo_no = atoi(str[1]);
-	data->ttdie = atoi(str[2]);
-	data->tteat = atoi(str[3]);
-	data->ttsleep = atoi(str[4]);
+	data->philo_no = ft_atoi(str[1]);
+	data->ttdie = ft_atoi(str[2]);
+	data->tteat = ft_atoi(str[3]);
+	data->ttsleep = ft_atoi(str[4]);
 	data->dead = 0;
 	data->start = 0;
 	data->thread = malloc(sizeof(pthread_t) * data->philo_no);
 	data->phil = malloc(sizeof(t_phil) * data->philo_no);
-	
+	if (pthread_mutex_init(data->mutex, NULL) != 0)
+		return (err_handler('m'));
+	if (pthread_mutex_init(data->print, NULL) != 0)
+		return (err_handler('m'));
+	if (pthread_mutex_init(data->forks, NULL) != 0)
+		return (err_handler('m'));
+	return (0);
 }
 
 int	main(int argc, char *argv[])
@@ -30,7 +36,7 @@ int	main(int argc, char *argv[])
 	t_phil	*phil;
 	t_data	*data;
 
-	if (argc == 5 || argc == 6)
+	if ((argc == 5 || argc == 6) && check_input(argc, argv) == 1)
 	{
 		if (argc == 5)
 			init(phil, data, argv, 0);
