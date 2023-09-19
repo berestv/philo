@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:29:36 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/09/18 17:04:21 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/09/19 19:13:38 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_phil
 
 typedef struct s_data
 {
-	int				philo_no;
+	int				phil_no;
 	int				ttdie;
 	int				tteat;
 	int				ttsleep;
@@ -44,8 +44,8 @@ typedef struct s_data
 	pthread_t		*thread;
 	pthread_mutex_t	mutex;
 	pthread_mutex_t	print;
-	pthread_mutex_t	forks;
-	t_philo			*phil;
+	pthread_mutex_t	*forks;
+	t_phil			*phil;
 }			t_data;
 
 // Errors/Checks
@@ -53,7 +53,8 @@ int		err_handler(char type);
 int		check_input(int arg, char **str);
 
 // Inits
-int		init(t_phil *phil, t_data *data, char **str);
+int		init(t_phil *phil, t_data *data, char **str, int meals);
+int		init2(t_phil *phil, t_data *data, char **str, int meals, int i);
 
 // Mutex/Thread Ops
 int		create_thread(pthread_t *thread);

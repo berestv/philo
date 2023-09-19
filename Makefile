@@ -8,6 +8,7 @@ RM = rm -rf
 
 SRCS =  main.c\
 		utils.c\
+		mutex.c\
 
 
 OBJS = $(SRCS:%.c=%.o)
