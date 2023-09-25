@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:38:22 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/09/19 19:13:12 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/09/25 18:12:27 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,45 @@ int	init(t_phil *phil, t_data *data, char **str, int meals)
 			return (err_handler('m'));
 		i++;
 	}
-	init2(phil, data, str, i);
+	init2(phil, data, str, meals);
 	return (0);
 }
 
-int	init2(t_phil *phil, t_data *data, char **str, int meals,int i)
+int	init2(t_phil *phil, t_data *data, char **str, int i)
 {
+	if (i >= 1)
+		phil->meal_no = i;
 	i = 0;
 	data->phil = malloc(sizeof(t_phil) * data->phil_no);
 	while (i < data->phil_no)
 	{
-		phil[i]->id = i;
+		phil[i].id = i;
+		phil[i].meal_no = 0;
+		phil[i].lfork = data->forks[i];
+		phil[i].rfork = data->forks[(i + 1) % data->phil_no];
 		if (pthread_mutex_init(phil[i], NULL) != 0)
 			return (err_handler('m'));
 		i++;
 	}
-	if ()
+	phil->prev_meal = 0;
+	if (pthread_mutex_init(phil->rfork, NULL) != 0)
+		return (err_handler('m'));
+	if (pthread_mutex_init(phil->lfork, NULL) != 0)
+		return (err_handler('m'));
+	if (pthread_mutex_init(phil->bigbro, NULL) != 0)
+		return (err_handler('m'));
 }
 
+void	start(t_phil *phil, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->phil_no)
+	{
+		if (pthread_create(&data->phil, NULL, ))
+	}
+}
 
 int	main(int argc, char *argv[])
 {
@@ -63,9 +84,10 @@ int	main(int argc, char *argv[])
 	if ((argc == 5 || argc == 6) && check_input(argc, argv) == 1)
 	{
 		if (argc == 5)
-			init(phil, data, argv, 0);
+			init(phil, data, argv, -1);
 		else
 			init(phil, data, argv, atoi(argv[5]));
+		start(phil, data);
 	}
 	else
 		return (err_handler('a'));

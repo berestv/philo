@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:29:36 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/09/19 19:13:38 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:52:10 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ typedef struct s_phil
 {
 	int				id;
 	int				meal_no;
-	t_data			*data;
+	//t_data			*data;
 	long long		prev_meal;
 	pthread_t		philos;
-	pthread_t		thread;
+	//pthread_t		thread;
 	pthread_mutex_t	*rfork;
 	pthread_mutex_t	*lfork;
 	pthread_mutex_t	*bigbro;
@@ -54,7 +54,10 @@ int		check_input(int arg, char **str);
 
 // Inits
 int		init(t_phil *phil, t_data *data, char **str, int meals);
-int		init2(t_phil *phil, t_data *data, char **str, int meals, int i);
+int		init2(t_phil *phil, t_data *data, char **str, int i);
+
+// Simulation
+void	start(t_phil *phil, t_data *data);
 
 // Mutex/Thread Ops
 int		create_thread(pthread_t *thread);
