@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:29:36 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/09/25 17:52:10 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:49:32 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_phil
 {
 	int				id;
 	int				meal_no;
-	//t_data			*data;
+	t_data			*data;
 	long long		prev_meal;
 	pthread_t		philos;
 	//pthread_t		thread;
