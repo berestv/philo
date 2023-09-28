@@ -10,7 +10,8 @@ SRCS =  main.c\
 		utils.c\
 		mutex.c\
 		status.c\
-
+		errors.c\
+		functions.c\
 
 OBJS = $(SRCS:%.c=%.o)
 

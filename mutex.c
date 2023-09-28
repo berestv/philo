@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 14:28:38 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/09/18 14:46:09 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:59:25 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,18 @@ int	destroy_mutex(pthread_mutex_t *mutex)
 	return (0);
 }
 
-int	create_thread(pthread_t *thread)
+/*int	create_thread(pthread_t *thread)
 {
 	if (pthread_create(thread) != 0)
 		return (err_handler('t'));
 	return (0);
-}
+}*/
 
+/*
 int	destroy_thread(pthread_t *thread)
 {
 	if (pthread_join(thread, NULL) != 0)
 		return (err_handler('j'));
 	return (0);
 }
+*/

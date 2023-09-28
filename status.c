@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:15:06 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/09/26 17:50:15 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/09/28 16:02:38 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,20 @@ void	*status(void *philo)
 {
 	t_phil	*phil;
 
-	phil = philo;
-	phil->prev_meal = NULL;
+	phil = (t_phil*)philo;
+	phil->prev_meal = get_time();
 	while (1)
 	{
-		if (phil->data.dead > 0)
+		if (phil->data->dead >= 0)
+			break ;
+		if (get_forks(phil->data) == -1)
 			break ;
 	}
+}
+
+int	get_forks(t_data *data)
+{
+	pthread_mutex_lock(data->phil->lfork);
+	ft_print(root, "has taken a fork");
+	return (0);
 }
