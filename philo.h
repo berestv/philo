@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:29:36 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/09/28 14:44:08 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:29:10 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ int			init(t_phil *phil, t_data *data, char **str, int meals);
 // Simulation
 void		start(t_data *data);
 void		*status(void *philo);
+void		sleeping(t_phil *phil);
+int			get_forks(t_phil *phil);
+void		print(t_phil *phil, char *str);
 
 // Mutex/Thread Ops
 int			create_thread(pthread_t *thread);

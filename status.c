@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:15:06 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/09/28 16:02:38 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:20:24 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,27 @@ void	*status(void *philo)
 	{
 		if (phil->data->dead >= 0)
 			break ;
-		if (get_forks(phil->data) == -1)
+		if (get_forks(phil) == -1)
 			break ;
 	}
+	return ((void *)phil);
 }
 
-int	get_forks(t_data *data)
+int	get_forks(t_phil *phil)
 {
-	pthread_mutex_lock(data->phil->lfork);
-	ft_print(root, "has taken a fork");
+	pthread_mutex_lock(phil->lfork);
+	print(phil, "has taken a fork");
+	if (phil->bigbro)
+	if (phil->data->phil_no == 1)
+	{
+		usleep(phil->data->tteat * 1000);
+		return (-1);
+	}
 	return (0);
+}
+
+void	sleeping(t_phil *phil)
+{
+	print(phil, "is eating");
+	usleep(phil->data->ttsleep * 1000);
 }
