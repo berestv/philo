@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:15:06 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/10/17 18:09:36 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:10:21 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,13 @@ int	get_forks(t_phil *phil)
 		lock_mutex(phil->rfork)
 		print(phil, "has taken a fork");
 		lock_mutex(phil->lfork)
+		print(phil, "has taken a fork");
+	}
+	else
+	{
+		lock_mutex(phil->lfork)
+		print(phil, "has taken a fork");
+		lock_mutex(phil->rfork)
 		print(phil, "has taken a fork");
 	}
 	return (0);
