@@ -30,7 +30,7 @@ $(NAME): $(OBJS)
 	echo " |_|    |_| |_|_|_|\___/|___/\___/| .__/|_| |_|\___|_|  |___/ "
 	echo "                                  | |                         "
 	echo "                                  |_|                         "
-	echo "($GREEN)Philosophers executable is ready!$(RESET)"
+	echo " ($GREEN) Philosophers executable is ready!" $(RESET)
 
 clean:
 	@$(RM) $(OBJS)
@@ -39,3 +39,5 @@ fclean: clean
 	@$(RM) $(NAME)
 
 re: fclean all
+
+.SILENT:

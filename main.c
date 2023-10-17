@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:38:22 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/09/28 14:51:30 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:00:04 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	init(t_phil *phil, t_data *data, char **str, int meals)
 	data->ttsleep = ft_atoi(str[4]);
 	data->thread = malloc(sizeof(pthread_t) * data->phil_no);
 	data->phil = malloc(sizeof(t_phil) * data->phil_no);
+	data->start = get_time();
 	if (pthread_mutex_init(&data->mutex, NULL) != 0)
 		return (err_handler('m'));
 	if (pthread_mutex_init(&data->print, NULL) != 0)
