@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:29:36 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/10/17 18:08:04 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:20:29 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_data
 	int				tteat;
 	int				ttsleep;
 	int				mealtrig;
+	int				totalmeals;
+	int				eaten;
 	int				dead;
 	long long		start;
 	pthread_t		*thread;

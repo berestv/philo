@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:38:22 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/10/17 18:00:04 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:20:52 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	init2(t_phil *phil, t_data *data, int i)
 	if (data->mealtrig == 1)
 		phil->meal_no = i;
 	i = 0;
+	data->eaten = 0;
 	data->phil = malloc(sizeof(t_phil) * data->phil_no);
 	while (i < data->phil_no)
 	{
@@ -95,8 +96,8 @@ int	main(int argc, char *argv[])
 			init(&phil, &data, argv, 0);
 		else
 		{
-			init(&phil, &data, argv, atoi(argv[5]));
 			data.mealtrig = 1;
+			init(&phil, &data, argv, atoi(argv[5]));
 		}
 		start(&data);
 	}

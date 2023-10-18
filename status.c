@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:15:06 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/10/17 18:10:21 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:22:47 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,28 @@ int	get_forks(t_phil *phil)
 	return (0);
 }
 
+void	eat(t_phil *phil)
+{
+	lock_mutex(&phil->data->mutex);
+	if (phil->data->dead > 0 || phil->meal_no == phil->data->phil_no)
+	{
+		unlock_mutex(&phil->data->mutex);
+		unlock_mutex(phil->lfork);
+		unlock_mutex(phil->rfork);
+		return (-1);
+	}
+	unlock_mutex(&phil->data->mutex);
+	lock_mutex(phil->bigbro);
+	phil->prev_meal = get_time();
+	if(phil->data->totalmeals == phil->meal_no)
+		phil->data->eaten++;
+	print(phil, "is eating");
+	usleep(phil->data->tteat * 1000);
+}
+
 void	p_sleep(t_phil *phil)
 {
 	print(phil, "is sleeping");
-	usleep(phil->data->ttsleep * 1000);
-}
-
-void	eat(t_phil *phil)
-{
-	print(phil, "is eating");
 	usleep(phil->data->ttsleep * 1000);
 }
 
