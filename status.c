@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:15:06 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/10/18 17:22:47 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/10/18 18:36:09 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	eat(t_phil *phil)
 		phil->data->eaten++;
 	print(phil, "is eating");
 	usleep(phil->data->tteat * 1000);
+	unlock_mutex(phil->lfork);
+	unlock_mutex(phil->rfork);
 }
 
 void	p_sleep(t_phil *phil)
