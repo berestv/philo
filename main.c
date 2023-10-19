@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:38:22 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/10/18 17:20:52 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:26:35 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	init(t_phil *phil, t_data *data, char **str, int meals)
 	data->tteat = ft_atoi(str[3]);
 	data->ttsleep = ft_atoi(str[4]);
 	data->thread = malloc(sizeof(pthread_t) * data->phil_no);
-	data->phil = malloc(sizeof(t_phil) * data->phil_no);
 	data->start = get_time();
 	if (pthread_mutex_init(&data->mutex, NULL) != 0)
 		return (err_handler('m'));
@@ -50,20 +49,23 @@ int	init2(t_phil *phil, t_data *data, int i)
 	data->phil = malloc(sizeof(t_phil) * data->phil_no);
 	while (i < data->phil_no)
 	{
-		phil[i].id = i;
-		phil[i].meal_no = 0;
-		phil[i].lfork = &data->forks[i];
-		phil[i].rfork = &data->forks[(i + 1) % data->phil_no];
-		phil[i].data = data;
+		data->phil[i].id = i;
+		data->phil[i].meal_no = 0;
+		if (pthread_mutex_init(data->phil[i].rfork, NULL) != 0)
+			return (err_handler('m'));
+		if (pthread_mutex_init(data->phil[i].lfork, NULL) != 0)
+			return (err_handler('m'));
+		data->phil[i].lfork = &data->forks[i];
+		if (data->phil_no > 1)
+			data->phil[i].rfork = &data->forks[(i + 1) % data->phil_no];
+		data->phil[i].data = data;
+		data->phil[i].prev_meal = 0;
+		if (pthread_mutex_init(data->phil[i].bigbro, NULL) != 0)
+			return (err_handler('m'));
 		i++;
 	}
-	phil->prev_meal = 0;
-	if (pthread_mutex_init(phil->rfork, NULL) != 0)
-		return (err_handler('m'));
-	if (pthread_mutex_init(phil->lfork, NULL) != 0)
-		return (err_handler('m'));
-	if (pthread_mutex_init(phil->bigbro, NULL) != 0)
-		return (err_handler('m'));
+
+
 	return (0);
 }
 
@@ -90,7 +92,7 @@ int	main(int argc, char *argv[])
 	t_phil	phil;
 	t_data	data;
 
-	if ((argc == 5 || argc == 6) && check_input(argc, argv) == 1)
+	if ((argc == 5 || argc == 6) && check_input(argc, argv) != -1)
 	{
 		if (argc == 5)
 			init(&phil, &data, argv, 0);

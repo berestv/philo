@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:29:36 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/10/18 17:20:29 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:45:43 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_data
 	int				tteat;
 	int				ttsleep;
 	int				mealtrig;
-	int				totalmeals;
+	int				tmeals;
 	int				eaten;
 	int				dead;
 	long long		start;
@@ -35,7 +35,7 @@ typedef struct s_data
 	pthread_mutex_t	mutex;
 	pthread_mutex_t	print;
 	pthread_mutex_t	*forks;
-	t_phil			*phil;
+	struct s_phil	*phil;
 }			t_data;
 
 typedef struct s_phil
@@ -60,11 +60,11 @@ int			init2(t_phil *phil, t_data *data, int i);
 int			init(t_phil *phil, t_data *data, char **str, int meals);
 
 // Simulation
-void		eat(t_phil *phil);
-void		think(t_phil *phil);
+int			eat(t_phil *phil);
+int			think(t_phil *phil);
 void		start(t_data *data);
 void		*status(void *philo);
-void		p_sleep(t_phil *phil);
+int			p_sleep(t_phil *phil);
 int			get_forks(t_phil *phil);
 void		print(t_phil *phil, char *str);
 
