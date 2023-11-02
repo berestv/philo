@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 14:28:38 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/10/16 17:33:35 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/10/23 12:29:31 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,28 @@ int	destroy_mutex(pthread_mutex_t *mutex)
 	return (0);
 }
 
-/*int	create_thread(pthread_t *thread)
+int	join_thread(t_data *data)
 {
-	if (pthread_create(thread) != 0)
-		return (err_handler('t'));
-	return (0);
-}*/
+	int	i;
 
-/*int	destroy_thread(pthread_t *thread)
-{
-	if (pthread_join(thread, NULL) != 0)
+	i = 0;
+	if (pthread_join(data->thread, NULL) != 0)
 		return (err_handler('j'));
+	while (i < data->phil_no)
+	{
+		if (pthread_join(data->phil[i].thread, NULL) != 0)
+		return (err_handler('j'));
+		usleep(100);
+		i++;
+	}
+	i = 0;
+	while (i < data->phil_no)
+	{
+		destroy_mutex(&data->forks[i]);
+		destroy_mutex(&data->phil[i].bigbro);
+		i++;
+	}
+	destroy_mutex(&data->print);
+	destroy_mutex(&data->mutex);
 	return (0);
-}*/
+}

@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:15:06 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/10/19 13:46:50 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/10/31 13:29:02 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,29 @@ void	*status(void *philo)
 	{
 		lock_mutex(phil->lfork);
 		print(phil, "has taken a fork");
-		usleep(phil->data->tteat * 1000);
 		unlock_mutex(phil->lfork);
 		return (NULL);
 	}
 	if (phil->id % 2 == 0)
-		usleep(2000);
-	phil->prev_meal = get_time();
-	while (1)
+		usleep(1150);
+	while (phil->data->dead == 0)
 	{
-		if (phil->data->dead > 0)
-			break ;
-		if (get_forks(phil) == -1 || eat(phil) == -1)
-			break ;
-		if (p_sleep(phil) == -1 || think(phil) == -1)
-			break ;
+		if (get_forks(phil) == -1)
+			return (NULL);
+		if (eat(phil) == -1)
+			return (NULL);
+		if (p_sleep(phil) == -1)
+			return (NULL);
+		if (think(phil) == -1)
+			return (NULL);
 	}
-	return ((void *)phil);
+	return (NULL);
 }
 
 int	get_forks(t_phil *phil)
 {
 	lock_mutex(&phil->data->mutex);
-	if (phil->data->dead > 0 || phil->data->tmeals == phil->data->phil_no)
+	if (phil->data->dead > 0 || phil->data->eaten == phil->data->phil_no)
 	{
 		unlock_mutex(&phil->data->mutex);
 		return (-1);
@@ -69,7 +69,7 @@ int	get_forks(t_phil *phil)
 int	eat(t_phil *phil)
 {
 	lock_mutex(&phil->data->mutex);
-	if (phil->data->dead > 0 || phil->data->tmeals == phil->data->phil_no)
+	if (phil->data->dead > 0 || phil->data->eaten == phil->data->phil_no)
 	{
 		unlock_mutex(&phil->data->mutex);
 		unlock_mutex(phil->lfork);
@@ -77,13 +77,16 @@ int	eat(t_phil *phil)
 		return (-1);
 	}
 	unlock_mutex(&phil->data->mutex);
-	lock_mutex(phil->bigbro);
+	lock_mutex(&phil->bigbro);
 	phil->prev_meal = get_time();
 	print(phil, "is eating");
-	if(phil->data->tmeals == phil->meal_no)
-		phil->data->eaten++;
+	lock_mutex(&phil->data->mutex);
+	phil->meal_no++;
+	if(phil->data->tmeals != -1)
+		if(phil->meal_no == phil->data->tteat)
+			phil->data->eaten++;
 	unlock_mutex(&phil->data->mutex);
-	unlock_mutex(phil->bigbro);
+	unlock_mutex(&phil->bigbro);
 	usleep(phil->data->tteat * 1000);
 	unlock_mutex(phil->lfork);
 	unlock_mutex(phil->rfork);
@@ -93,7 +96,7 @@ int	eat(t_phil *phil)
 int	p_sleep(t_phil *phil)
 {
 	lock_mutex(&phil->data->mutex);
-	if (phil->data->dead > 0 || phil->data->tmeals == phil->data->phil_no)
+	if (phil->data->dead > 0 || phil->data->eaten == phil->data->phil_no)
 	{
 		unlock_mutex(&phil->data->mutex);
 		return (-1);
@@ -107,7 +110,7 @@ int	p_sleep(t_phil *phil)
 int	think(t_phil *phil)
 {
 	lock_mutex(&phil->data->mutex);
-	if (phil->data->dead > 0 || phil->data->tmeals == phil->data->phil_no)
+	if (phil->data->dead > 0 || phil->data->eaten == phil->data->phil_no)
 	{
 		unlock_mutex(&phil->data->mutex);
 		return (-1);

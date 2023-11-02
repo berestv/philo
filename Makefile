@@ -5,7 +5,7 @@ GREEN	= \033[1;32m
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -g
 RM = rm -rf
 
 SRCS =  main.c\
