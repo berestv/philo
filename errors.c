@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:03:06 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/10/31 11:52:10 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:03:07 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	err_handler(char type)
 {
 	if (type == 'a')
 		printf("Error! Wrong arguments.\nUse"
-			   "./philo [1-200 philosophers] [time_to_die] [time_to_eat] "
-			   "[time_to_sleep] ([(opt.)max_meals])\n");
+			"./philo [1-200 philosophers] [time_to_die] [time_to_eat] "
+			"[time_to_sleep] ([(opt.)max_meals])\n");
 	else if (type == 'm')
 		printf("Error initializing mutex.");
 	else if (type == 'l')

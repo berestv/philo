@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:38:22 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/10/31 12:13:58 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:01:18 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	start(t_data *data)
 		i++;
 	}
 	if (pthread_create(&data->thread, NULL,
-				&threads, &data->phil[i]) != 0)
-			err_handler('t');
+			&threads, data) != 0)
+		err_handler('t');
 }
 
 int	main(int argc, char *argv[])
@@ -91,7 +91,10 @@ int	main(int argc, char *argv[])
 	if ((argc == 5 || argc == 6) && check_input(argc, argv) != -1)
 	{
 		if (argc == 5)
+		{
+			data.mealtrig = -1;
 			init(&data, argv, 0);
+		}
 		else
 		{
 			data.mealtrig = 1;
@@ -102,6 +105,8 @@ int	main(int argc, char *argv[])
 		free(data.forks);
 		free(data.phil);
 	}
-	else
+	else if (argc != 5 && argc != 6)
 		return (err_handler('a'));
+	else
+		return (0);
 }

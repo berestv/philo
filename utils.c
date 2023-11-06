@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:21:49 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/10/31 12:09:53 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:35:06 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	haslett(char **str)
 		while (str[i][j] != '\0')
 		{
 			if (str[i][j] < '0' || str[i][j] > '9')
-				return (err_handler('a'));
+				return (-1);
 			j++;
 		}
 		i++;
@@ -61,13 +61,13 @@ int	check_input(int arg, char **str)
 	int	n;
 
 	if (haslett(str) == -1)
-		return (-1);
+		return (err_handler('a'));
 	n = ft_atoi(str[1]);
-	while (arg-- > 0)
-		if (ft_atoi(str[arg]) < 0)
-			return (-1);
-	if (n < 1 || n > 200)
-		return (-1);
+	while (--arg > 0)
+		if (ft_atoi(str[arg]) <= 0)
+			return (err_handler('a'));
+	if (n < 1)
+		return (err_handler('a'));
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:15:06 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/10/31 13:29:02 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:03:40 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*status(void *philo)
 {
 	t_phil	*phil;
 
-	phil = (t_phil*)philo;
+	phil = (t_phil *)philo;
 	if (phil->data->phil_no == 1)
 	{
 		lock_mutex(phil->lfork);
@@ -25,7 +25,7 @@ void	*status(void *philo)
 		return (NULL);
 	}
 	if (phil->id % 2 == 0)
-		usleep(1150);
+		usleep(1669);
 	while (phil->data->dead == 0)
 	{
 		if (get_forks(phil) == -1)
@@ -80,13 +80,13 @@ int	eat(t_phil *phil)
 	lock_mutex(&phil->bigbro);
 	phil->prev_meal = get_time();
 	print(phil, "is eating");
+	unlock_mutex(&phil->bigbro);
 	lock_mutex(&phil->data->mutex);
 	phil->meal_no++;
-	if(phil->data->tmeals != -1)
-		if(phil->meal_no == phil->data->tteat)
+	if (phil->data->tmeals != -1)
+		if (phil->meal_no == phil->data->tmeals)
 			phil->data->eaten++;
 	unlock_mutex(&phil->data->mutex);
-	unlock_mutex(&phil->bigbro);
 	usleep(phil->data->tteat * 1000);
 	unlock_mutex(phil->lfork);
 	unlock_mutex(phil->rfork);

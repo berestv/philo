@@ -6,7 +6,7 @@
 /*   By: bbento-e <bbento-e@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 14:28:38 by bbento-e          #+#    #+#             */
-/*   Updated: 2023/10/23 12:29:31 by bbento-e         ###   ########.fr       */
+/*   Updated: 2023/11/06 11:01:41 by bbento-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	join_thread(t_data *data)
 	while (i < data->phil_no)
 	{
 		if (pthread_join(data->phil[i].thread, NULL) != 0)
-		return (err_handler('j'));
+			return (err_handler('j'));
 		usleep(100);
 		i++;
 	}
